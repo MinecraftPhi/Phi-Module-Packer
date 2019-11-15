@@ -34,7 +34,7 @@ namespace Phi.Packer.Common.Converters
         private static Exception CreateException(string message, JsonReader reader)
         {
             var info = (IJsonLineInfo)reader;
-            return new JsonSerializationException(message, reader.Path, info.LineNumber, info.LinePosition, null);
+            return new JsonSerializationException($"'{message}', Path '{reader.Path}', line {info.LineNumber}, position {info.LinePosition}.", reader.Path, info.LineNumber, info.LinePosition, null);
         }
     }
 }
