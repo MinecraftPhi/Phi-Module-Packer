@@ -22,9 +22,16 @@ namespace Phi.Packer.Common
         public SemanticVersion? Version { get; set; }
 
         public static readonly string ModuleFileName = "module.json";
-        public static Module? Load(string path)
+        public static Module? Load(string? path = null)
         {
-            if (path == null) throw new ArgumentNullException(nameof(path));
+            if(string.IsNullOrWhiteSpace(path))
+            {
+                path = Directory.GetCurrentDirectory();
+            }
+            else if(!Path.IsPathFullyQualified(path))
+            {
+                path = Path.GetFullPath(path);
+            }
 
             // If path points either to a directory or a file that isn't a module file
             if (Path.GetFileName(path) is string fileName && fileName != ModuleFileName)
