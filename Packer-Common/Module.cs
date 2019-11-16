@@ -31,7 +31,7 @@ namespace Phi.Packer.Common
             Converters = new JsonConverter[] { new SemanticVersionConverter(), new StringEnumConverter() { NamingStrategy = new CamelCaseNamingStrategy() } },
             ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
             DefaultValueHandling = DefaultValueHandling.Ignore,
-            ContractResolver = new DefaultContractResolver() { NamingStrategy = new CamelCaseNamingStrategy() }
+            ContractResolver = ModuleContractResolver.Instance
         };
 
         public static readonly string ModuleFileName = "module.json";
