@@ -25,6 +25,7 @@ namespace Phi.Packer.Common
 
         public List<PreprocessorConfig> Preprocessors { get; } = new List<PreprocessorConfig>();
 
+        public List<string> Profiles { get; } = new List<string>();
 
         public static JsonSerializerSettings JsonSettings => new JsonSerializerSettings()
         {
