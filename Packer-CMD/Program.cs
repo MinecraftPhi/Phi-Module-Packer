@@ -1,4 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
+using NuGet.Protocol;
+using Phi.Packer.Common;
+using Phi.Packer.Common.Helpers;
+using System;
+using System.Linq;
 using System.Reflection;
 using Module = Phi.Packer.Common.Module;
 
@@ -82,12 +89,8 @@ ERROR:
             {
                 if (Module.Load() is Module module)
                 {
-                    Console.WriteLine($@"
-ID: {module.Id}
-Name: {module.Name}
-Description: {module.Description}
-Version: {module.Version}
-".TrimStart());
+                    var json = JsonConvert.SerializeObject(module, Formatting.Indented, Module.JsonSettings);
+                    Console.WriteLine(json);
                 }
                 else
                 {
