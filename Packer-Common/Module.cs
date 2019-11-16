@@ -27,6 +27,10 @@ namespace Phi.Packer.Common
 
         public List<string> Profiles { get; } = new List<string>();
 
+        public List<DependencyDefinition> Dependencies { get; } = new List<DependencyDefinition>();
+
+        public List<DependencyDefinition> OptionalDependencies { get; } = new List<DependencyDefinition>();
+
         public static JsonSerializerSettings JsonSettings => new JsonSerializerSettings()
         {
             Converters = new JsonConverter[] { 

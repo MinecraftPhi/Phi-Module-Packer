@@ -13,5 +13,9 @@ namespace Phi.Packer.Common
         public List<PreprocessorConfig> Preprocessors { get; } = new List<PreprocessorConfig>();
 
         public List<string> Profiles { get; } = new List<string>();
+
+        public List<DependencyDefinition> Dependencies { get; } = new List<DependencyDefinition>();
+
+        public List<DependencyDefinition> OptionalDependencies { get; } = new List<DependencyDefinition>();
     }
 }

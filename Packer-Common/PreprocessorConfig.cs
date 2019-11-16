@@ -103,6 +103,8 @@ namespace Phi.Packer.Common
 
         [JsonProperty(Required = Required.Always)]
         public string? Url { get; set; }
+
+        public CustomPreprocessor() { }
     }
 
     public sealed class SplitPreprocessor : RunnablePreprocessor
