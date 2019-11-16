@@ -1,5 +1,5 @@
 # Phi Module Packer
-A generic pre-processor for [Phi style modules](https://github.com/MinecraftPhi/phi.core/blob/feature/module_structure/docs/module_structure.md)
+A generic pre-processor for [Phi style modules](https://github.com/MinecraftPhi/phi.core/blob/develop/docs/module_structure.md)
 
 ## Packer-Common
 Class library that loads the module, downloads the required dependencies, loads the associated pre-processors (using a callback to download), and runs the pre-processors.
