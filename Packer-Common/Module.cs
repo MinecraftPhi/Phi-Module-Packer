@@ -21,7 +21,7 @@ namespace Phi.Packer.Common
 
         public SemanticVersion? Version { get; set; }
 
-        public List<PreprocessorConfig>? Preprocessors { get; set; }
+        public List<PreprocessorConfig> Preprocessors { get; } = new List<PreprocessorConfig>();
 
 
         public static readonly string ModuleFileName = "module.json";
@@ -51,7 +51,8 @@ namespace Phi.Packer.Common
 
             return JsonConvert.DeserializeObject<Module>(File.ReadAllText(path), new JsonSerializerSettings() {
                 Converters = new[] { new SemanticVersionConverter() },
-                ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor
+                ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
+                DefaultValueHandling = DefaultValueHandling.Ignore
             });
         }
     }
