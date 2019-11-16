@@ -51,6 +51,8 @@ namespace Phi.Packer.Common
 
         public List<Glob> Inputs { get; } = new List<Glob>();
 
+        public IDictionary<string, OutputDefinition> Outputs { get; } = new Dictionary<string, OutputDefinition>();
+
         internal RunnablePreprocessor() : base(true) { }
     }
 
