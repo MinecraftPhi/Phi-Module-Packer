@@ -25,7 +25,6 @@ namespace Phi.Packer.Common.Converters
 
             if (prop.PropertyType?.GetInterface(nameof(IEnumerable)) != null)
             {
-                var shouldSerialize = prop.ShouldSerialize;
                 prop.ShouldSerialize = self => 
                     self?.GetType().GetProperty(member.Name)?.GetValue(self).As<IEnumerable>()?.Cast<object>().Any() == true;
             }
