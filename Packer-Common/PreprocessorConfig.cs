@@ -64,6 +64,10 @@ namespace Phi.Packer.Common
     public sealed class CustomPreprocessor : PreprocessorConfig
     {
         public override PreprocessorType Type => PreprocessorType.Custom;
+
+        public string? Name { get; set; }
+
+        public string? Url { get; set; }
     }
 
     public sealed class SplitPreprocessor : PreprocessorConfig
