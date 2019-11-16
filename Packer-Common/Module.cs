@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 using NuGet.Protocol;
 using NuGet.Versioning;
 using Phi.Packer.Common.Converters;
@@ -23,6 +25,14 @@ namespace Phi.Packer.Common
 
         public List<PreprocessorConfig> Preprocessors { get; } = new List<PreprocessorConfig>();
 
+
+        public static JsonSerializerSettings JsonSettings => new JsonSerializerSettings()
+        {
+            Converters = new JsonConverter[] { new SemanticVersionConverter(), new StringEnumConverter() { NamingStrategy = new CamelCaseNamingStrategy() } },
+            ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
+            DefaultValueHandling = DefaultValueHandling.Ignore,
+            ContractResolver = new DefaultContractResolver() { NamingStrategy = new CamelCaseNamingStrategy() }
+        };
 
         public static readonly string ModuleFileName = "module.json";
         public static Module? Load(string? path = null)
@@ -49,11 +59,7 @@ namespace Phi.Packer.Common
                 path = Path.Combine(path, ModuleFileName);
             }
 
-            return JsonConvert.DeserializeObject<Module>(File.ReadAllText(path), new JsonSerializerSettings() {
-                Converters = new[] { new SemanticVersionConverter() },
-                ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
-                DefaultValueHandling = DefaultValueHandling.Ignore
-            });
+            return JsonConvert.DeserializeObject<Module>(File.ReadAllText(path), JsonSettings);
         }
     }
 }

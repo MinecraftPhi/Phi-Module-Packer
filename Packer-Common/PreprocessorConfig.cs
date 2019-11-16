@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using JsonSubTypes;
 using Newtonsoft.Json.Converters;
+using System.ComponentModel;
 
 namespace Phi.Packer.Common
 {
@@ -20,7 +21,7 @@ namespace Phi.Packer.Common
     [JsonSubtypes.KnownSubType(typeof(SplitPreprocessor), PreprocessorType.Split)]
     public class PreprocessorConfig
     {
-        [JsonConverter(typeof(StringEnumConverter))]
+        [DefaultValue(PreprocessorType.Invalid)]
         public virtual PreprocessorType Type => PreprocessorType.Invalid;
 
         // Limit subclasses to this assembly
