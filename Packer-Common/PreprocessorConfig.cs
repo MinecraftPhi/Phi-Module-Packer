@@ -9,7 +9,7 @@ namespace Phi.Packer.Common
 {
     public enum PreprocessorType
     {
-        Verified, Nuget, Local, Custom, Split
+        Verified, Nuget, Local, Custom, Split, Invalid
     }
 
     [JsonConverter(typeof(JsonSubtypes), nameof(Type))]
@@ -18,10 +18,10 @@ namespace Phi.Packer.Common
     [JsonSubtypes.KnownSubType(typeof(LocalPreprocessor), PreprocessorType.Local)]
     [JsonSubtypes.KnownSubType(typeof(CustomPreprocessor), PreprocessorType.Custom)]
     [JsonSubtypes.KnownSubType(typeof(SplitPreprocessor), PreprocessorType.Split)]
-    public abstract class PreprocessorConfig
+    public class PreprocessorConfig
     {
         [JsonConverter(typeof(StringEnumConverter))]
-        public abstract PreprocessorType Type { get; }
+        public virtual PreprocessorType Type => PreprocessorType.Invalid;
 
         // Limit subclasses to this assembly
         internal PreprocessorConfig() { }
