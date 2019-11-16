@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Phi.Packer.Common.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,25 +13,19 @@ namespace Phi.Packer.Common.Converters
         {
             if (reader.TokenType != JsonToken.String)
             {
-                throw CreateException($"Expected string value, but found {reader.TokenType}.", reader);
+                throw reader.CreateSerializationException($"Expected string value, but found {reader.TokenType}.");
             }
             else if(reader.Value is string id && !string.IsNullOrWhiteSpace(id))
             {
-                return IdRegex.IsMatch(id) ? id : throw CreateException($"Namespaced ID must match {IdRegex}", reader);
+                return IdRegex.IsMatch(id) ? id : throw reader.CreateSerializationException($"Namespaced ID must match {IdRegex}");
             }
             else
             {
-                throw CreateException("Non-empty namespaced ID required.", reader);
+                throw reader.CreateSerializationException("Non-empty namespaced ID required.");
             }
         }
 
         private static readonly Regex IdRegex = new Regex(@"\A[a-z0-9._-]+:[a-z0-9._-]+\z");
-
-        private static Exception CreateException(string message, JsonReader reader)
-        {
-            var info = (IJsonLineInfo)reader;
-            return new JsonSerializationException($"'{message}', Path '{reader.Path}', line {info.LineNumber}, position {info.LinePosition}.", reader.Path, info.LineNumber, info.LinePosition, null);
-        }
 
         public override void WriteJson(JsonWriter writer, string? value, JsonSerializer serializer)
         {

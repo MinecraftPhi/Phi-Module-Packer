@@ -29,7 +29,11 @@ namespace Phi.Packer.Common
 
         public static JsonSerializerSettings JsonSettings => new JsonSerializerSettings()
         {
-            Converters = new JsonConverter[] { new SemanticVersionConverter(), new StringEnumConverter() { NamingStrategy = new CamelCaseNamingStrategy() } },
+            Converters = new JsonConverter[] { 
+                new SemanticVersionConverter(),
+                new StringEnumConverter() { NamingStrategy = new CamelCaseNamingStrategy() },
+                new GlobConverter()
+            },
             ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
             DefaultValueHandling = DefaultValueHandling.Ignore,
             ContractResolver = ModuleContractResolver.Instance

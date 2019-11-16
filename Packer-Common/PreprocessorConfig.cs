@@ -8,6 +8,7 @@ using System.ComponentModel;
 using NuGet.Versioning;
 using Phi.Packer.Common.Converters;
 using Newtonsoft.Json.Linq;
+using DotNet.Globbing;
 
 namespace Phi.Packer.Common
 {
@@ -47,6 +48,9 @@ namespace Phi.Packer.Common
     {
 
         public IDictionary<string, JToken> Params { get; } = new Dictionary<string, JToken>();
+
+        public List<Glob> Inputs { get; } = new List<Glob>();
+
         internal RunnablePreprocessor() : base(true) { }
     }
 
