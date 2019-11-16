@@ -5,6 +5,9 @@ using System.Text;
 using JsonSubTypes;
 using Newtonsoft.Json.Converters;
 using System.ComponentModel;
+using NuGet.Versioning;
+using Phi.Packer.Common.Converters;
+using Newtonsoft.Json.Linq;
 
 namespace Phi.Packer.Common
 {
@@ -40,42 +43,60 @@ namespace Phi.Packer.Common
         }
     }
 
-    public sealed class VerifiedPreprocessor : PreprocessorConfig
+    public class RunnablePreprocessor : PreprocessorConfig
+    {
+        [JsonProperty(Required = Required.Always)]
+        [JsonConverter(typeof(NamespacedIdConverter))]
+        public string? Id { get; set; }
+
+        public IDictionary<string, JToken> Params { get; } = new Dictionary<string, JToken>();
+        internal RunnablePreprocessor() : base(true) { }
+    }
+
+    public sealed class VerifiedPreprocessor : RunnablePreprocessor
     {
         public override PreprocessorType Type => PreprocessorType.Verified;
 
-        public VerifiedPreprocessor() : base(true) { }
+        [JsonProperty(Required = Required.Always)]
+        public SemanticVersion? Version { get; set; }
+
+        public VerifiedPreprocessor() { }
     }
 
-    public sealed class NugetPreprocessor : PreprocessorConfig
+    public sealed class NugetPreprocessor : RunnablePreprocessor
     {
         public override PreprocessorType Type => PreprocessorType.Nuget;
 
-        public NugetPreprocessor() : base(true) { }
+        [JsonProperty(Required = Required.Always)]
+        public SemanticVersion? Version { get; set; }
+
+        public NugetPreprocessor() { }
     }
 
-    public sealed class LocalPreprocessor : PreprocessorConfig
+    public sealed class LocalPreprocessor : RunnablePreprocessor
     {
         public override PreprocessorType Type => PreprocessorType.Local;
 
-        public LocalPreprocessor() : base(true) { }
+        public LocalPreprocessor() { }
     }
 
     public sealed class CustomPreprocessor : PreprocessorConfig
     {
         public override PreprocessorType Type => PreprocessorType.Custom;
 
+        [JsonProperty(Required = Required.Always)]
         public string? Name { get; set; }
 
+        [JsonProperty(Required = Required.Always)]
         public string? Url { get; set; }
     }
 
-    public sealed class SplitPreprocessor : PreprocessorConfig
+    public sealed class SplitPreprocessor : RunnablePreprocessor
     {
         public override PreprocessorType Type => PreprocessorType.Split;
 
         public IDictionary<string, PreprocessorConfig> Preprocessors { get; } = new Dictionary<string, PreprocessorConfig>();
 
-        public SplitPreprocessor() : base(true) { }
+        public SplitPreprocessor() { }
     }
 }
