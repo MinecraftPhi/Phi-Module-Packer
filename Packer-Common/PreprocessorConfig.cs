@@ -50,5 +50,7 @@ namespace Phi.Packer.Common
     public sealed class SplitPreprocessor : PreprocessorConfig
     {
         public override PreprocessorType Type => PreprocessorType.Split;
+
+        public IDictionary<string, PreprocessorConfig> Preprocessors { get; } = new Dictionary<string, PreprocessorConfig>();
     }
 }
