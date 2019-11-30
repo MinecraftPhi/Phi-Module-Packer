@@ -60,9 +60,6 @@ namespace Phi.Packer.Common
         IReadOnlyDictionary<string, JToken> IRunnablePreprocessorConfig.Params => Params.AsReadOnly();
 
         [JsonIgnore]
-        IReadOnlyList<Glob> IRunnablePreprocessorConfig.Inputs => Inputs.AsReadOnly();
-
-        [JsonIgnore]
         IEnumerable<KeyValuePair<string, IOutputDefinition>> IRunnablePreprocessorConfig.Outputs => Outputs.Select(p => new KeyValuePair<string, IOutputDefinition>(p.Key, p.Value));
 
         internal RunnablePreprocessorConfig() : base(true) { }
