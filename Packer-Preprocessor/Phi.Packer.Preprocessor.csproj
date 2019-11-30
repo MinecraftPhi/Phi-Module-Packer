@@ -8,4 +8,10 @@
     <Version>0.0.1</Version>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="NuGet.Protocol" Version="5.3.1" />
+    <PackageReference Include="ShellProgressBar" Version="4.3.0" />
+    <PackageReference Include="System.Interactive.Async" Version="4.0.0" />
+  </ItemGroup>
+
 </Project>

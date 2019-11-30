@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using NuGet.Versioning;
 using Phi.Packer.Common.Converters;
+using Phi.Packer.Preprocessor;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,17 +10,12 @@ using System.Text;
 
 namespace Phi.Packer.Common
 {
-    public enum DependencyType
-    {
-        Module, Datapack, Resourcepack, Mod, Invalid
-    }
-
     [JsonConverter(typeof(JsonSubtypes), nameof(Type))]
     [JsonSubtypes.KnownSubType(typeof(ModuleDependencyDefinition), DependencyType.Module)]
     [JsonSubtypes.KnownSubType(typeof(DatapackDependencyDefinition), DependencyType.Datapack)]
     [JsonSubtypes.KnownSubType(typeof(ResourcepackDependencyDefinition), DependencyType.Resourcepack)]
     [JsonSubtypes.KnownSubType(typeof(ModDependencyDefinition), DependencyType.Mod)]
-    public class DependencyDefinition
+    public class DependencyDefinition : IDependencyDefinition
     {
         [DefaultValue(DependencyType.Invalid)]
         public virtual DependencyType Type => DependencyType.Invalid;
@@ -29,7 +25,15 @@ namespace Phi.Packer.Common
         internal DependencyDefinition() { }
     }
 
-    public sealed class ModuleDependencyDefinition : DependencyDefinition
+    public abstract class BundleableDependencyDefinition : DependencyDefinition, IBundleableDependencyDefinition
+    {
+        [DefaultValue(true)]
+        public bool Bundle { get; set; }
+
+        public string? Path { get; set; }
+    }
+
+    public sealed class ModuleDependencyDefinition : BundleableDependencyDefinition
     {
         public override DependencyType Type => DependencyType.Module;
 
@@ -40,9 +44,6 @@ namespace Phi.Packer.Common
         [JsonProperty(Required = Required.Always)]
         public SemanticVersion? Version { get; set; }
 
-        [DefaultValue(true)]
-        public bool Bundle { get; set; } = true;
-
         public ModuleDependencyDefinition() { }
     }
 
@@ -51,16 +52,13 @@ namespace Phi.Packer.Common
         Git, File
     }
 
-    public abstract class RawPackDependencyDefinition : DependencyDefinition
+    public abstract class RawPackDependencyDefinition : BundleableDependencyDefinition
     {
         [JsonProperty(Required = Required.Always)]
         public SourceType Source { get; set; }
 
         [JsonProperty(Required = Required.Always)]
         public string? Url { get; set; }
-
-        [DefaultValue(true)]
-        public bool Bundle { get; set; } = true;
 
         internal RawPackDependencyDefinition() { }
     }

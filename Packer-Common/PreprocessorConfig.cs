@@ -6,9 +6,13 @@ using JsonSubTypes;
 using Newtonsoft.Json.Converters;
 using System.ComponentModel;
 using NuGet.Versioning;
-using Phi.Packer.Common.Converters;
 using Newtonsoft.Json.Linq;
 using DotNet.Globbing;
+using Phi.Packer.Preprocessor;
+using Phi.Packer.Common.Converters;
+using Phi.Packer.Helper;
+using System.Linq;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Phi.Packer.Common
 {
@@ -44,19 +48,37 @@ namespace Phi.Packer.Common
         }
     }
 
-    public class RunnablePreprocessor : PreprocessorConfig
+    public class RunnablePreprocessorConfig : PreprocessorConfig, IRunnablePreprocessorConfig
     {
-
         public IDictionary<string, JToken> Params { get; } = new Dictionary<string, JToken>();
 
         public List<Glob> Inputs { get; } = new List<Glob>();
 
         public IDictionary<string, OutputDefinition> Outputs { get; } = new Dictionary<string, OutputDefinition>();
 
-        internal RunnablePreprocessor() : base(true) { }
+        [JsonIgnore]
+        IReadOnlyDictionary<string, JToken> IRunnablePreprocessorConfig.Params => Params.AsReadOnly();
+
+        [JsonIgnore]
+        IReadOnlyList<Glob> IRunnablePreprocessorConfig.Inputs => Inputs.AsReadOnly();
+
+        [JsonIgnore]
+        IEnumerable<KeyValuePair<string, IOutputDefinition>> IRunnablePreprocessorConfig.Outputs => Outputs.Select(p => new KeyValuePair<string, IOutputDefinition>(p.Key, p.Value));
+
+        internal RunnablePreprocessorConfig() : base(true) { }
+
+
+        public IOutputDefinition GetOutput(string name) => Outputs[name];
+
+        public bool TryGetOutput(string name, [MaybeNullWhen(false)] out IOutputDefinition? output)
+        {
+            bool success = Outputs.TryGetValue(name, out OutputDefinition? res);
+            output = res;
+            return success;
+        }
     }
 
-    public sealed class VerifiedPreprocessor : RunnablePreprocessor
+    public sealed class VerifiedPreprocessor : RunnablePreprocessorConfig
     {
         public override PreprocessorType Type => PreprocessorType.Verified;
 
@@ -70,7 +92,7 @@ namespace Phi.Packer.Common
         public VerifiedPreprocessor() { }
     }
 
-    public sealed class NugetPreprocessor : RunnablePreprocessor
+    public sealed class NugetPreprocessor : RunnablePreprocessorConfig
     {
         public override PreprocessorType Type => PreprocessorType.Nuget;
 
@@ -84,7 +106,7 @@ namespace Phi.Packer.Common
         public NugetPreprocessor() { }
     }
 
-    public sealed class LocalPreprocessor : RunnablePreprocessor
+    public sealed class LocalPreprocessor : RunnablePreprocessorConfig
     {
         public override PreprocessorType Type => PreprocessorType.Local;
 
@@ -107,7 +129,7 @@ namespace Phi.Packer.Common
         public CustomPreprocessor() { }
     }
 
-    public sealed class SplitPreprocessor : RunnablePreprocessor
+    public sealed class SplitPreprocessor : RunnablePreprocessorConfig
     {
         public override PreprocessorType Type => PreprocessorType.Split;
 

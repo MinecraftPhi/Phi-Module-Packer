@@ -1,9 +1,10 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 
-namespace Phi.Packer.Common.Helpers
+namespace Phi.Packer.Helper
 {
     public static class Extensions
     {
@@ -15,5 +16,8 @@ namespace Phi.Packer.Common.Helpers
             var info = (IJsonLineInfo)reader;
             return new JsonSerializationException($"'{message}', Path '{reader.Path}', line {info.LineNumber}, position {info.LinePosition}.", reader.Path, info.LineNumber, info.LinePosition, null);
         }
+
+        public static IReadOnlyDictionary<TKey, TValue> AsReadOnly<TKey, TValue>(this IDictionary<TKey, TValue> self)
+            where TKey : notnull => new ReadOnlyDictionary<TKey, TValue>(self);
     }
 }

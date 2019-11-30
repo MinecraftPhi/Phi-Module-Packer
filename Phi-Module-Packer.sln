@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29503.13
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phi.Packer.Common", "Packer-Common\Phi.Packer.Common.csproj", "{0CFE837A-DFD7-407A-B331-52CA8A3D4FFC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Phi.Packer.Common", "Packer-Common\Phi.Packer.Common.csproj", "{0CFE837A-DFD7-407A-B331-52CA8A3D4FFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phi.Packer.Downloader", "Packer-Downloader\Phi.Packer.Downloader.csproj", "{6A0B99F6-DC15-4335-94F3-62E13138AC60}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Phi.Packer.Downloader", "Packer-Downloader\Phi.Packer.Downloader.csproj", "{6A0B99F6-DC15-4335-94F3-62E13138AC60}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phi.Packer.CMD", "Packer-CMD\Phi.Packer.CMD.csproj", "{7060FDFE-2DDE-4FCB-BCFD-78754FE750B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Phi.Packer.CMD", "Packer-CMD\Phi.Packer.CMD.csproj", "{7060FDFE-2DDE-4FCB-BCFD-78754FE750B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phi.Packer.Preprocessor", "Packer-Preprocessor\Phi.Packer.Preprocessor.csproj", "{A3D0C8A1-85C0-43D2-8392-C41C2B9F8633}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Phi.Packer.Preprocessor", "Packer-Preprocessor\Phi.Packer.Preprocessor.csproj", "{A3D0C8A1-85C0-43D2-8392-C41C2B9F8633}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phi.Packer.Helper", "Phi.Packer.Helper\Phi.Packer.Helper.csproj", "{2FC16B77-33A0-4DC7-B2E7-3521BD69243C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +71,18 @@ Global
 		{A3D0C8A1-85C0-43D2-8392-C41C2B9F8633}.Release|x64.Build.0 = Release|Any CPU
 		{A3D0C8A1-85C0-43D2-8392-C41C2B9F8633}.Release|x86.ActiveCfg = Release|Any CPU
 		{A3D0C8A1-85C0-43D2-8392-C41C2B9F8633}.Release|x86.Build.0 = Release|Any CPU
+		{2FC16B77-33A0-4DC7-B2E7-3521BD69243C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FC16B77-33A0-4DC7-B2E7-3521BD69243C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FC16B77-33A0-4DC7-B2E7-3521BD69243C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2FC16B77-33A0-4DC7-B2E7-3521BD69243C}.Debug|x64.Build.0 = Debug|Any CPU
+		{2FC16B77-33A0-4DC7-B2E7-3521BD69243C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2FC16B77-33A0-4DC7-B2E7-3521BD69243C}.Debug|x86.Build.0 = Debug|Any CPU
+		{2FC16B77-33A0-4DC7-B2E7-3521BD69243C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FC16B77-33A0-4DC7-B2E7-3521BD69243C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FC16B77-33A0-4DC7-B2E7-3521BD69243C}.Release|x64.ActiveCfg = Release|Any CPU
+		{2FC16B77-33A0-4DC7-B2E7-3521BD69243C}.Release|x64.Build.0 = Release|Any CPU
+		{2FC16B77-33A0-4DC7-B2E7-3521BD69243C}.Release|x86.ActiveCfg = Release|Any CPU
+		{2FC16B77-33A0-4DC7-B2E7-3521BD69243C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

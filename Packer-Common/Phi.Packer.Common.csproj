@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Packer-Preprocessor\Phi.Packer.Preprocessor.csproj" />
+    <ProjectReference Include="..\Phi.Packer.Helper\Phi.Packer.Helper.csproj" />
   </ItemGroup>
 
 </Project>
