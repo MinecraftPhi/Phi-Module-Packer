@@ -50,6 +50,13 @@ namespace Phi.Packer.Common
 
     public class RunnablePreprocessorConfig : PreprocessorConfig, IRunnablePreprocessorConfig
     {
+        [JsonProperty(Required = Required.Always)]
+        [JsonConverter(typeof(NamespacedIdConverter))]
+        public string? Id { get; set; }
+
+        [JsonProperty(Required = Required.Always)]
+        public SemanticVersion? Version { get; set; }
+
         public IDictionary<string, JToken> Params { get; } = new Dictionary<string, JToken>();
 
         public List<Glob> Inputs { get; } = new List<Glob>();
@@ -79,26 +86,12 @@ namespace Phi.Packer.Common
     {
         public override PreprocessorType Type => PreprocessorType.Verified;
 
-        [JsonProperty(Required = Required.Always)]
-        [JsonConverter(typeof(NamespacedIdConverter))]
-        public string? Id { get; set; }
-
-        [JsonProperty(Required = Required.Always)]
-        public SemanticVersion? Version { get; set; }
-
         public VerifiedPreprocessor() { }
     }
 
     public sealed class NugetPreprocessor : RunnablePreprocessorConfig
     {
         public override PreprocessorType Type => PreprocessorType.Nuget;
-
-        [JsonProperty(Required = Required.Always)]
-        [JsonConverter(typeof(NamespacedIdConverter))]
-        public string? Id { get; set; }
-
-        [JsonProperty(Required = Required.Always)]
-        public SemanticVersion? Version { get; set; }
 
         public NugetPreprocessor() { }
     }
