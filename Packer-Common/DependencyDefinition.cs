@@ -27,6 +27,8 @@ namespace Phi.Packer.Common
 
     public abstract class BundleableDependencyDefinition : DependencyDefinition, IBundleableDependencyDefinition
     {
+        internal BundleableDependencyDefinition() { }
+
         [DefaultValue(true)]
         public bool Bundle { get; set; }
 
