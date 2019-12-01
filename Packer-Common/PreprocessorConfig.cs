@@ -22,11 +22,11 @@ namespace Phi.Packer.Common
     }
 
     [JsonConverter(typeof(JsonSubtypes), nameof(Type))]
-    [JsonSubtypes.KnownSubType(typeof(VerifiedPreprocessor), PreprocessorType.Verified)]
-    [JsonSubtypes.KnownSubType(typeof(NugetPreprocessor), PreprocessorType.Nuget)]
-    [JsonSubtypes.KnownSubType(typeof(LocalPreprocessor), PreprocessorType.Local)]
-    [JsonSubtypes.KnownSubType(typeof(CustomPreprocessor), PreprocessorType.Custom)]
-    [JsonSubtypes.KnownSubType(typeof(SplitPreprocessor), PreprocessorType.Split)]
+    [JsonSubtypes.KnownSubType(typeof(VerifiedPreprocessorConfig), PreprocessorType.Verified)]
+    [JsonSubtypes.KnownSubType(typeof(NugetPreprocessorConfig), PreprocessorType.Nuget)]
+    [JsonSubtypes.KnownSubType(typeof(LocalPreprocessorConfig), PreprocessorType.Local)]
+    [JsonSubtypes.KnownSubType(typeof(CustomPreprocessorConfig), PreprocessorType.Custom)]
+    [JsonSubtypes.KnownSubType(typeof(SplitPreprocessorConfig), PreprocessorType.Split)]
     public class PreprocessorConfig
     {
         [DefaultValue(PreprocessorType.Invalid)]
@@ -82,31 +82,31 @@ namespace Phi.Packer.Common
         }
     }
 
-    public sealed class VerifiedPreprocessor : RunnablePreprocessorConfig
+    public sealed class VerifiedPreprocessorConfig : RunnablePreprocessorConfig
     {
         public override PreprocessorType Type => PreprocessorType.Verified;
 
-        public VerifiedPreprocessor() { }
+        public VerifiedPreprocessorConfig() { }
     }
 
-    public sealed class NugetPreprocessor : RunnablePreprocessorConfig
+    public sealed class NugetPreprocessorConfig : RunnablePreprocessorConfig
     {
         public override PreprocessorType Type => PreprocessorType.Nuget;
 
-        public NugetPreprocessor() { }
+        public NugetPreprocessorConfig() { }
     }
 
-    public sealed class LocalPreprocessor : RunnablePreprocessorConfig
+    public sealed class LocalPreprocessorConfig : RunnablePreprocessorConfig
     {
         public override PreprocessorType Type => PreprocessorType.Local;
 
         [JsonProperty(Required = Required.Always)]
         public string? Folder { get; set; }
 
-        public LocalPreprocessor() { }
+        public LocalPreprocessorConfig() { }
     }
 
-    public sealed class CustomPreprocessor : PreprocessorConfig
+    public sealed class CustomPreprocessorConfig : PreprocessorConfig
     {
         public override PreprocessorType Type => PreprocessorType.Custom;
 
@@ -116,15 +116,15 @@ namespace Phi.Packer.Common
         [JsonProperty(Required = Required.Always)]
         public string? Url { get; set; }
 
-        public CustomPreprocessor() { }
+        public CustomPreprocessorConfig() { }
     }
 
-    public sealed class SplitPreprocessor : RunnablePreprocessorConfig
+    public sealed class SplitPreprocessorConfig : RunnablePreprocessorConfig
     {
         public override PreprocessorType Type => PreprocessorType.Split;
 
         public IDictionary<string, PreprocessorConfig> Preprocessors { get; } = new Dictionary<string, PreprocessorConfig>();
 
-        public SplitPreprocessor() { }
+        public SplitPreprocessorConfig() { }
     }
 }
